@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Өлең Жинағы | Poetic Anthology</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Custom CSS for the abstract gradient background */
+        .abstract-bg {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8eaf6 50%, #fce4ec 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 2rem 1rem;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .container-card {
+            z-index: 10;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), 0 5px 15px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 1200px;
+        }
+        
+        .collection-box {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: 1px solid #e5e7eb;
+        }
+        .collection-box:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Custom styles for poem content to preserve line breaks correctly */
+        .poem-content p, .poem-view-content p {
+            line-height: 1.8;
+            font-size: 1rem;
+            color: #4b5563; /* Gray-600 */
+            margin-bottom: 1.25rem;
+            text-align: justify;
+            white-space: pre-wrap; /* Keeps the line breaks */
+        }
+
+        .poem-view-content p {
+             text-align: left; /* Adjust alignment for better poem reading */
+        }
+        
+        /* Instagram icon gradient style */
+        .instagram-icon {
+            color: #E1306C; /* Default fallback color */
+            transition: color 0.3s;
+        }
+        .instagram-icon:hover {
+            color: #C13584; 
+        }
+
+        /* Styling for the blockquote in 'About Author' section */
+        .about-quote {
+            border-left: 4px solid #3b82f6; /* Blue-500 */
+            padding-left: 1.5rem;
+            font-style: italic;
+            color: #1f2937; /* Gray-800 */
+        }
+
+    </style>
+</head>
+<body class="abstract-bg">
+
+    <div id="app" class="p-6 md:p-10 rounded-xl container-card">
+        <!-- Content will be rendered here by JavaScript -->
+    </div>
+
+    <script>
+        // --- DATA SECTION: POETRY ANTHOLOGY CONTENT ---
+        const anthologyData = {
+            "apatayim": {
+                title: "Апатайым",
+                icon: '<svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-amber-500" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>', 
+                description: "Отбасылық естеліктер мен сағыныш жырлары.",
+                poems: [
+                    { 
+                        title: "Апатайыма", 
+                        text: "Апатай, бір жыл өтті өзіңді көрмегелі,\nМейірімің мен құшағыңды сезбегелі.\nСарғайған сағынышқа малынып ап,\nОтырмын қаламыммен тербегелі.\nАқ әжем, жарқын бейнең әлі есімде,\nБағыт бердің еркелеген кезімде...\nЕстеліктер өзің жайлы есімде,\nЖанашыр жан өзің едің өмірде.\nЖүруші едің сәби мені арқалап,\nКөңілімді аулайын деп, уайымдап.\nЕркелетіп далаға алып шығып,\nЖүруші едік тек жақсыны қарайлап.\nТек жақсыны, әже,  маған үйреттің\nАқындарша келді мені сөйлеткің.\nҚанша еркелеп, мазаңды алып жатсам да,\nРенжімей,  кеңшілікке үйреттің.\nКетер емес асыл бейнең жүректен,\nЕске аламыз бір өзіңді құрметпен.\nАпатайым, дұғадамыз, әрдайым,\nБар немерең өзің баптап түлеткен!"
+                    },
+                    { 
+                        title: "Апам емес, ол елес", 
+                        text: "Кенеттен баттым мен тәтті үйқыға,\nТелефон соқты дәл менің қасымда.\nТелефонды алсам апам дауысы.\n« - Алло апа..»\nДедім көзіме мен жас ала.\nКөзімді ашсам ешкім жоқ жанымда,\nҚайтадан баттым тәтті ұйқыма.\nҒайыптан бір дауыс мені оятты,\nҚарасам апам тұр дәл алдымда.\nБұның бәрі бір ғажайып түс екен,\nТүстің өзі бір үлкен іс екен.\nМен көрген апам емес бір елес,\nОл елес апам кейпінде жүр екен."
+                    },
+                    { 
+                        title: "Немерең толды бүгін 18-ге", 
+                        text: "Апашым, апатайым, апа-жаным,\nЕржеткенімді көруіңді қалағанмын.\nАмал нешік, өмірдің заңдылығы,\nДей салып, өзімді жұбатамын.\nҚонақтап, кіресің кейде түстеріме,\nСасқанымнан айталмаймын ештеңе де.\nСағыныштан бала кездер еске түсіп,\nЖыр қылып, түсіремін дәптеріме.\nЖыладым, еркеледім бала кезде,\nДалаға алып шықтың, көндіруге.\nЕркелікпен ержетіп Әлібиің,\nБүгін толды немерең 18-ге."
+                    }
+                ]
+            },
+            "akyndarga": {
+                title: "Ақындарға ақындарша",
+                icon: '<svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-blue-600" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H7M17 19H7M5 5v14M19 5v14"/><path d="M15 5h-6M15 19h-6"/></svg>', 
+                description: "Қазақтың ұлы ақындарына арналған тілек.",
+                poems: [
+                    { 
+                        title: "Абай атама", 
+                        text: "Шабыт келіп қаламымды жүгірттім,\nҰмыт болды көкейдегі күңгүрт мұң.\nҰлы ақынды оқығанда мен деген,\nБар қайғы-қасіретті ұмыттым.\nБас ақынды сүйіп өтем мендеген,\nЖырларымен жүрегімді емдегем.\nЖауһар жырын мен әрдайым жақұт пен,\nҒажайып бір сырлы әлемге тең көрем.\nҰлы Абайды оқығанда шаттанам,\nБіркеремет ғажап күйге тап болам.\nӘр жырынан қуат алып жаныма,\nҚазақ болып туғаныма мақтанам.\nАбай – ұлы, Абай - биік ғаламда,\nӘр айтқаны жатталып тұр санамда.\nАдалдық пен ақиқатты ту етіп,\nҮйретті ғой соның бәрін адамға.\nДанышпанның сөзін ұғар жүрекпен,\nЖас ақынмын жыр арнағн тілекпен.\nМәңгі бақи бізге ақын өнеге,\nҰлы елдің тынышығын күзеткен."
+                    },
+                    { 
+                        title: "Мұқағали атама", 
+                        text: "Адамсыз, жаратылған сүйек, етен,\nЖырларын қазағына тарту еткен.\nҚарапайым қазақтың Мұзбалағы,\nӨлеңімен жүрекке жалын берген.\nСөздері асыл, ойлары ұшқыр, терең,\nДаналықты көрермін әркез сенен.\nЖырыңды оқып, өмірге шүкір айтып,\nБолашаққа ғажайып әркез сенем.\nМен өзіңнен үлгі алып келемін,\nЖырларыңда қуат барын сеземін.\nАрманыма қанат бітіп жалғанда,\nСөз өнердің бал бақшасын кеземін.\nӨн бойында толып тұр ізет деген,\nЖыр жаздың таза, аппақ тілекпенен.\nҚазақтың мақтан тұтар өр ақыны,\nӨзіңе жыр арнадым жүрекпенен."
+                    },
+                    { 
+                        title: "Қадыр атама", 
+                        text: "Қазақтың мақтанышы - елін сүйген, \nҚазағына жыр жазды сазды үнмен. \nӨлеңіңді оқып, біз рухтанып, \nТарихымды таныдым даңқты күннен. \nӨзіңе еліктеп өссе жас ұрпақ, \nБолашақ өмірі нұрлы болмақ. \nРухтанған өлеңіңді оқып өсіп,\nҚазақ жерін әлемге мәшһүр қылмақ.\nСаған арнап жыр жаздым шабыттанып, \nЖырларыңнан төгілді нұрлар ағып. \nЖырларың қалды өшпес мұра болып, \nӘр қазақтың жүрегінен орын тауып.\nСөз маржанын қалдырдың мұра қылып, \nҰрпағың жүрер сендей қыран болып. \nҚанша уақыт өтсе де ұмытылмай, \nЖарқырап тұрар жырларың - шырақ болып."
+                    }
+                ]
+            },
+            "mahabat": {
+                title: "Махаббат жыры",
+                icon: '<svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-pink-600" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 5H9l-5 5 5 5h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2Z"/><line x1="12" x2="18" y1="10" y2="10"/></svg>', 
+                description: "Сұлулық пен нәзіктік туралы өлеңдер.",
+                poems: [
+                    { 
+                        title: "Бір көргеннен...", 
+                        text: "Бір көргеннен ғашық болдым бейнеңе,\nСол сәтте ақ баурадыңғой сезімге. Өмірімді басқа жаққа өзгертіп,\nСол сезімді ұйқастырдым өлеңге.\nБір көргеннен ғашық болу дегенге Сенбейтінмін, күлетінмін өзгеге. Сені көріп үнсіз қалдым кенеттен,\nАйтылмаған сөздер қалды жүректе\nСол бір бейнең тербетеді жүректі,\nСенен басқа көрмеймін мен ешкімді.\nСұлу жүзді бейнеңді мен көргенде,\nСасқалақтап, жоғалтамын өзімді. \nСезбейсіңғой сезімімді мендегі,\nЖүрегімнің бөлігісің негізгі.\nКөзің тисе көңілімде гүл өсет,\nҮнсіз ғана ұғасың ба сөзімді. \nСаған арнап жыр жазыдм үмітпен,\nЖазғы жаңбыр себелеген түнімен.\nӘр сөзімде жүрегімнің үні бар,\nСезіне алсаң – сезім жатыр түбінде.\nБәлкім бір күн сезімімді ұғарсың,\nКөзімдегі үнсіз мұңнан табарсың.\nСаған арнап жыр жазудан жалықпайм,\nӘр жырымда басты рөлді сомдайсың.\nКүрсіндім мен... Шындығында ұқпайсың,\nЖүрек үні саған жетпес удай шын.\nБәлкім саған лайық адам бар шығар,\nЕң соғында үнсіз ғана қош айттым..."
+                    }
+                ]
+            }
+        };
+
+        // Автор туралы мәлімет
+        const aboutAuthorData = `
+            <h1 class="text-4xl md:text-5xl font-extrabold text-blue-900 mb-6 text-center">
+                Автор туралы
+            </h1>
+            <div class="max-w-4xl mx-auto space-y-8 text-lg text-gray-700">
+                <p>
+                    <span class="text-2xl font-bold text-blue-600">Сейтқали Әліби</span> – шығармашылыққа жақын, ойы терең, жас ақын.
+                </p>
+                <p>
+                    <span class="font-semibold text-gray-900">Өмірбаяны:</span> 2007 жылдың 4 желтоқсанында Алматы қаласында дүниеге келген. Әкесі – әскери қызметкер, анасы – медицина маманы. Үйдің ортаншысы ретінде ол үлкендік пен кішіліктің ортасындағы жауапкершілікті ерте сезініп, мінезін де осы тепе-теңдікпен қалыптастырды.
+                </p>
+                <div class="bg-blue-50/70 p-6 rounded-xl border-l-4 border-blue-500 shadow-inner">
+                    <p class="font-medium text-gray-800">
+                        Алдында әпкесі, артында қарындасы бар — бұл отбасылық орта оны жанашырлыққа, сабырға және адамдарды тереңірек түсінуге үйретті. Осы қасиеттер кейін оның сөз қолданысында, ой жеткізу мәнерінде және жазу стилінде анық көрінеді.
+                    </p>
+                </div>
+                <p>
+                    <span class="font-semibold text-gray-900">Білімі:</span> Қазіргі таңда Әліби М. Мақатаев атындағы №140 гимназиясын тәмәмдап, Абай атындағы Қазақ ұлттық университетінде білім алады. Бұл орта оған жаңа идеялар, шығармашылық шабыт және өзін жаңа қырынан таныту мүмкіндігін беруде.
+                </p>
+                <p>
+                    <span class="font-semibold text-gray-900">Шығармашылық мінезі:</span> Әліби — эмоциясын кейде ашық, кейде ішке сақтап жеткізетін, жұмсақ сөйлейтін, иронияны ұнататын жан. Бір сәт ойланып кетсе, келесі сәт тек "по делу" сөйлеп, нақты болуды жөн көреді — осының бәрі оның шығармашылық табиғатын айқындайды.
+                </p>
+                
+                <div class="about-quote text-xl md:text-2xl mt-8 pt-4">
+                    Ол поэзияны жақсы түсінеді, әсіресе Мұқағали Мақатаев шығармашылығынан шабыт алады. Өлеңнің өрнегін, сөздің салмағын, сағыныш пен ойдың тереңдігін дәл сезіне алады. Өз ойын көркем жеткізуге, мәтін құруға және жүрекке жақын жол табуға қабілетті.
+                </div>
+
+                <p class="pt-4 text-center text-xl font-bold text-gray-800">
+                    <span class="text-blue-600">Қорытындылай келе:</span> Әліби – өз ойын, сезімін және жан дүниесін сөз арқылы жеткізе алатын жас автор. Оның ішкі әлемі бай, болашағы жарқын, ал шығармашылық жолы енді ғана басталып келеді.
+                </p>
+            </div>
+        `;
+
+
+        // DOM элементін алу
+        const app = document.getElementById('app');
+        let currentView = 'home';
+        let currentCollectionKey = null;
+
+        /**
+         * Навигациялық жолақты (Header) құрастырады.
+         * @returns {string} HTML string
+         */
+        function renderHeader() {
+            return `
+                <nav class="flex justify-between items-center py-4 px-4 sm:px-0">
+                    <h1 class="text-xl md:text-2xl font-extrabold text-blue-900 tracking-wider">
+                        ӨЛЕҢ ЖИНАҒЫ
+                    </h1>
+                    <div class="space-x-4 text-sm font-medium hidden sm:flex">
+                        <a href="#" onclick="navigate('home'); return false;" class="${currentView === 'home' ? 'text-blue-600 border-b-2 border-blue-600 pb-1' : 'text-gray-600 hover:text-blue-600'}"
+                           >Басты бет</a>
+                        <span class="text-gray-600 hover:text-blue-600 cursor-pointer" onclick="navigate('home')">Жинақтар</span>
+                        <a href="#" onclick="navigate('author'); return false;" class="${currentView === 'author' ? 'text-blue-600 border-b-2 border-blue-600 pb-1' : 'text-gray-600 hover:text-blue-600'}"
+                           >Автор туралы</a>
+                        <span class="text-gray-600 hover:text-blue-600 cursor-pointer">Байланыс</span>
+                    </div>
+                </nav>
+                <hr class="mb-8 border-gray-200">
+            `;
+        }
+
+        /**
+         * Басты бетті (Жинақтар тізімі) көрсетеді.
+         */
+        function renderHome() {
+            currentView = 'home';
+            currentCollectionKey = null;
+
+            let collectionsHtml = Object.keys(anthologyData).map(key => {
+                const collection = anthologyData[key];
+                let colorClass, iconColorClass;
+
+                // Сызба элементтеріне арналған түстер
+                if (key === 'apatayim') {
+                    colorClass = 'border-amber-500/30 bg-amber-50/70 hover:bg-amber-100/80'; 
+                    iconColorClass = 'text-amber-600';
+                } else if (key === 'akyndarga') {
+                    colorClass = 'border-blue-500/30 bg-blue-50/70 hover:bg-blue-100/80'; 
+                    iconColorClass = 'text-blue-600';
+                } else if (key === 'mahabat') {
+                    colorClass = 'border-pink-500/30 bg-pink-50/70 hover:bg-pink-100/80'; 
+                    iconColorClass = 'text-pink-600';
+                }
+                
+                return `
+                    <div onclick="navigate('collection', '${key}')"
+                         class="collection-box p-6 rounded-2xl border-2 ${colorClass} shadow-lg text-center flex flex-col items-center justify-center min-h-[180px]">
+                        <div class="mb-4 p-3 rounded-full ${iconColorClass} bg-white shadow-md">
+                            ${collection.icon.replace(/text-[a-z]+-500/, iconColorClass)}
+                        </div>
+                        <h2 class="text-xl font-bold text-gray-800 mb-2">
+                            ${collection.title}
+                        </h2>
+                        <p class="text-sm text-gray-600 px-2">${collection.description}</p>
+                        <span class="mt-4 text-xs font-semibold uppercase ${iconColorClass}">
+                            ${collection.poems.length} өлең
+                        </span>
+                    </div>
+                `;
+            }).join('');
+
+            app.innerHTML = `
+                ${renderHeader()}
+                <header class="text-center mb-12">
+                    <h1 class="text-5xl md:text-6xl font-extrabold text-blue-900 tracking-tight mb-4">
+                        ЖҮРЕК ЖЫРЫ
+                    </h1>
+                    <p class="text-lg text-gray-600 font-medium">Өлеңдер жинағының электронды нұсқасы</p>
+                </header>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                    ${collectionsHtml}
+                </div>
+
+                ${renderFooter()}
+            `;
+        }
+
+        /**
+         * Таңдалған жинақтың өлеңдер тізімін көрсетеді.
+         * @param {string} key - Жинақтың кілті
+         */
+        function renderCollection(key) {
+            const collection = anthologyData[key];
+            if (!collection) {
+                app.innerHTML = renderHeader() + '<p class="text-center text-red-500 mt-10">Жинақ табылмады.</p>' + renderFooter();
+                return;
+            }
+            
+            currentView = 'collection';
+            currentCollectionKey = key;
+
+            const poemsList = collection.poems.map((poem, index) => `
+                <li onclick="navigate('poem', '${key}', ${index})"
+                    class="p-5 bg-white rounded-xl shadow-md border border-gray-100 hover:bg-gray-50/80 cursor-pointer transition flex justify-between items-center group">
+                    <span class="text-lg font-medium text-gray-800 group-hover:text-blue-600">${poem.title}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400 group-hover:text-blue-500 transition" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </li>
+            `).join('');
+
+            app.innerHTML = `
+                ${renderHeader()}
+                <button onclick="navigate('home')" class="text-blue-600 hover:text-blue-800 flex items-center mb-8 text-base font-semibold">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                    Басты жинақтарға оралу
+                </button>
+                <div class="text-center mb-8">
+                    <h1 class="text-4xl font-extrabold text-gray-900 mb-2">
+                        «${collection.title}» Жинағы
+                    </h1>
+                    <p class="text-lg text-gray-500">${collection.description}</p>
+                </div>
+                
+                <ul class="space-y-4 max-w-3xl mx-auto">
+                    ${poemsList}
+                </ul>
+                
+                ${renderFooter()}
+            `;
+        }
+        
+        /**
+         * Нақты өлеңнің толық мәтінін көрсетеді.
+         * @param {string} key - Жинақтың кілті
+         * @param {number} index - Өлеңнің индексі
+         */
+        function renderPoem(key, index) {
+            const collection = anthologyData[key];
+            const poem = collection?.poems[index];
+            
+            if (!poem) {
+                renderHome();
+                return;
+            }
+
+            currentView = 'poem';
+
+            app.innerHTML = `
+                ${renderHeader()}
+                <button onclick="navigate('collection', '${key}')" class="text-blue-600 hover:text-blue-800 flex items-center mb-6 text-base font-semibold">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                    «${collection.title}» тізіміне оралу
+                </button>
+                
+                <div class="bg-white p-6 md:p-12 rounded-xl shadow-2xl border border-gray-200">
+                    <h1 class="text-3xl md:text-5xl font-extrabold text-blue-800 mb-8 text-center border-b pb-4">
+                        ${poem.title}
+                    </h1>
+                    
+                    <div class="poem-view-content text-lg text-gray-700 mx-auto max-w-4xl text-left">
+                        ${poem.text.split('\n').map(line => `<p class="mb-3">${line}</p>`).join('')}
+                    </div>
+
+                    <div class="mt-10 pt-6 border-t border-gray-100 text-right text-sm text-gray-400">
+                        <p>${collection.title} жинағынан</p>
+                    </div>
+                </div>
+
+                ${renderFooter()}
+            `;
+        }
+
+        /**
+         * Автор туралы ақпаратты көрсетеді.
+         */
+        function renderAuthorPage() {
+            currentView = 'author';
+
+            app.innerHTML = `
+                ${renderHeader()}
+                <div class="bg-white p-6 md:p-12 rounded-xl shadow-2xl border border-gray-200">
+                    ${aboutAuthorData}
+                </div>
+                ${renderFooter()}
+            `;
+        }
+
+        /**
+         * Төменгі деректер жолағын (Footer) құрастырады.
+         * @returns {string} HTML string
+         */
+        function renderFooter() {
+            // Instagram сілтемесі
+            const instagramLink = 'https://www.instagram.com/alibiseitkaliev/';
+            
+            return `
+                <footer class="mt-16 pt-8 border-t border-gray-200 text-center">
+                    <p class="text-sm text-gray-500 mb-4">© 2024 ӨЛЕҢ ЖИНАҒЫ | Барлық құқық қорғалған</p>
+                    
+                    <div class="flex justify-center space-x-4 text-gray-400">
+                        <!-- Instagram Icon: Links to the user's profile -->
+                        <a href="${instagramLink}" target="_blank" rel="noopener noreferrer" 
+                           class="instagram-icon hover:opacity-80 transition-opacity">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-2">Автормен байланыс</p>
+                </footer>
+            `;
+        }
+
+        /**
+         * Навигацияны басқарады.
+         * @param {string} target - Қай бетке өту керектігі ('home', 'collection', 'poem', 'author')
+         * @param {string} [key] - Жинақ кілті
+         * @param {number} [index] - Өлең индексі
+         */
+        function navigate(target, key = null, index = null) {
+            if (target === 'home') {
+                renderHome();
+            } else if (target === 'collection' && key) {
+                renderCollection(key);
+            } else if (target === 'poem' && key !== null && index !== null) {
+                renderPoem(key, index);
+            } else if (target === 'author') {
+                renderAuthorPage();
+            }
+            // URL тарихын жаңарту (optional)
+            history.pushState({ target, key, index }, '', `#${target}/${key || ''}/${index !== null ? index : ''}`);
+        }
+
+        // --- INIT & EVENT LISTENERS ---
+
+        /**
+         * Бастапқы бетті URL-ге сәйкес жүктеу.
+         */
+        function handleInitialLoad() {
+            const hash = window.location.hash.slice(1);
+            const [target, key, indexStr] = hash.split('/');
+            const index = indexStr ? parseInt(indexStr) : null;
+            
+            if (target === 'collection' && key) {
+                navigate('collection', key);
+            } else if (target === 'poem' && key && index !== null) {
+                navigate('poem', key, index);
+            } else if (target === 'author') {
+                navigate('author');
+            } else {
+                navigate('home');
+            }
+        }
+
+        // Құжат толық жүктелгенде қосу
+        window.onload = handleInitialLoad;
+        window.onpopstate = handleInitialLoad; // Браузердің "артқа" батырмасын қолдау
+
+    </script>
+</body>
+</html>
